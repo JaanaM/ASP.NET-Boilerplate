@@ -48,5 +48,18 @@ namespace MyProject.Tests.Users
                 johnNashUser.ShouldNotBeNull();
             });
         }
+        [Fact]
+        public async Task Should_Delete_User_Test ()
+        {
+            await CreateUser_Test();
+            await UsingDbContextAsync(async context =>
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.UserName == "john.nash");
+                user.ShouldNotBe(null);
+                //await UserAppService.DeleteAsync(new EntityDto<long>(user.Id));
+            });
+           
+
+        }
     }
 }
